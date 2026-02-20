@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>Profile | Study Tracker</title>
+
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="icon" type="image/png"
+          href="{{ url_for('static', filename='favicon.png') }}?v=5">
+</head>
+
+<body>
+
+
+<!-- ================= PAGE WRAPPER ================= -->
+
+<div id="pageWrapper">
+
+
+<!-- ================= PROFILE CARD ================= -->
+
+<div class="card profile-view">
+
+
+    <!-- Header -->
+
+    <div class="profile-header">
+
+        <div class="profile-left">
+
+            <h2>{{ username }}</h2>
+
+            <p class="profile-level">{{ level }}</p>
+
+        </div>
+
+
+        <div class="profile-right">
+
+            <a href="/edit_profile" class="btn-edit">
+                Edit Profile
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <hr>
+
+
+    <!-- Stats Grid -->
+
+    <div class="profile-stats">
+
+
+        <div class="stat-box">
+
+            <h4>Total Hours</h4>
+            <p>{{ total_hours }}</p>
+
+        </div>
+
+
+        <div class="stat-box">
+
+            <h4>Study Days</h4>
+            <p>{{ total_days }}</p>
+
+        </div>
+
+
+        <div class="stat-box">
+
+            <h4>Best Subject</h4>
+            <p>{{ best_subject }}</p>
+
+        </div>
+
+
+        <div class="stat-box">
+
+            <h4>Avg Difficulty</h4>
+            <p>{{ avg_difficulty }}</p>
+
+        </div>
+
+
+        <div class="stat-box">
+
+            <h4>Streak</h4>
+            <p>{{ streak }} days</p>
+
+        </div>
+
+    </div>
+
+
+    <!-- Back Button -->
+
+    <div class="profile-footer">
+
+        <a href="/" class="btn-back">
+            ⬅ Back to Dashboard
+        </a>
+
+    </div>
+
+
+</div>
+
+
+</div>
+
+
+</body>
+</html>

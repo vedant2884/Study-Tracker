@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>Smart Study Tracker</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png"
+          href="{{ url_for('static', filename='favicon.png') }}?v=5">
+</head>
+
+
+
+<body>
+
+<!-- ================= TOP BAR ================= -->
+
+<div class="top-bar">
+
+    <h2 class="app-title">Smart Study Tracker</h2>
+
+    <div class="top-user" id="profileMenu">
+
+        <!-- Profile Image -->
+        {% if profile_img != "default.png" %}
+        <img src="/uploads/{{ profile_img }}" class="avatar" id="avatarBtn">
+        {% else %}
+        <img src="{{ url_for('static', filename='default.png') }}" class="avatar" id="avatarBtn">
+        {% endif %}
+
+        <!-- Dropdown -->
+        <div class="dropdown" id="dropdownMenu">
+
+            <p class="user-name">{{ display_name }}</p>
+
+            <hr>
+
+            <a href="/profile">View Profile</a>
+
+            <a href="/edit_profile">Edit Profile</a>
+
+            <button id="themeToggle" class="dropdown-btn">
+                Dark Mode
+            </button>
+
+            <hr>
+
+            <a href="/logout" class="logout">🚪 Logout</a>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ================= PAGE CONTENT ================= -->
+
+<div id="pageWrapper">
+
+
+<!-- ================= WEEKLY GOAL ================= -->
+
+<div class="goal-box">
+
+    <form method="POST" action="/set_goal" class="goal-form">
+
+        <label>Weekly Goal (hrs):</label>
+
+        <input type="number" name="goal" min="0" required>
+
+        <button type="submit">Set</button>
+
+        <a href="/reset_goal" id="resetGoalBtn" class="reset-btn">Reset</a>
+
+
+    </form>
+
+    <p id="goalText"></p>
+
+    <div class="progress-bar">
+        <div id="progressFill"></div>
+    </div>
+
+</div>
+
+
+<!-- ================= ADD LOG ================= -->
+
+<div class="card">
+
+    <h3>Add Study Log</h3>
+
+    <form method="POST" action="/add" class="log-form">
+
+        <div class="form-grid">
+
+            <input type="date" name="date" required>
+
+            <input type="text" name="subject"
+                placeholder="Subject" required>
+
+            <input type="text" name="topic"
+                placeholder="Topic" required>
+
+            <input type="number" step="0.5"
+                name="hours"
+                placeholder="Hours" required>
+
+        </div>
+
+        <div class="form-bottom">
+
+            <select name="difficulty" required>
+                <option value="">Difficulty</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+            </select>
+
+            <button type="submit">Add</button>
+
+        </div>
+
+    </form>
+
+</div>
+
+
+<!-- ================= ANALYTICS ================= -->
+
+<div class="card">
+
+    <h3>Study Analytics</h3>
+
+    {% if total_hours %}
+
+        <h4>Total Hours per Subject</h4>
+
+        <ul>
+            {% for subject, hrs in total_hours.items() %}
+                <li><b>{{ subject }}</b> : {{ hrs }} hrs</li>
+            {% endfor %}
+        </ul>
+
+        <h4>Hours Chart</h4>
+
+        <img src="{{ url_for('static', filename='subject_hours.png') }}"
+             width="400">
+
+        {% if readiness %}
+
+            <hr>
+
+            <h3>AI Readiness Predictor</h3>
+
+            <p><b>Score:</b> {{ readiness }}%</p>
+
+            <p><b>Status:</b> {{ status }}</p>
+
+        {% endif %}
+
+    {% else %}
+
+        <p>No data yet for analytics.</p>
+
+    {% endif %}
+
+</div>
+
+
+<!-- ================= HISTORY ================= -->
+
+<div class="card">
+
+    <!-- Undo / Redo -->
+    <div class="history-actions">
+
+        <a href="/undo" class="action-btn undo-btn">
+            ↩️ Undo
+        </a>
+
+        <a href="/redo" class="action-btn redo-btn">
+            ↪️ Redo
+        </a>
+
+    </div>
+
+
+    <!-- Search / Filter -->
+    <div class="search-box">
+
+        <input type="text"
+               id="searchInput"
+               placeholder="🔍 Search subject / topic...">
+
+        <select id="difficultyFilter">
+            <option value="">All Difficulty</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+        </select>
+
+        <input type="date" id="fromDate">
+        <input type="date" id="toDate">
+
+        <button id="clearFilter">Clear</button>
+
+    </div>
+
+
+    <h3>Study History</h3>
+
+
+    <table id="logTable">
+
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Subject</th>
+                <th>Topic</th>
+                <th>Hours</th>
+                <th>Difficulty</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+        {% for log in logs %}
+
+            <tr>
+
+                <td>{{ log.date }}</td>
+                <td>{{ log.subject }}</td>
+                <td>{{ log.topic }}</td>
+                <td>{{ log.hours }}</td>
+                <td>{{ log.difficulty }}</td>
+
+                <td>
+                    <a href="/delete/{{ log.id }}"
+                       onclick="return confirm('Delete this entry?')"
+                       class="delete-btn">
+                        🗑️
+                    </a>
+                </td>
+
+            </tr>
+
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+
+</div> <!-- pageWrapper end -->
+
+
+<!-- ================= JS ================= -->
+
+<script src="/static/main.js"></script>
+
+</body>
+</html>

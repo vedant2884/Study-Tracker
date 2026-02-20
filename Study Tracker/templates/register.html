@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>Register | Study Tracker</title>
+
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="icon" type="image/png"
+          href="{{ url_for('static', filename='favicon.png') }}?v=5">
+</head>
+
+<body>
+
+
+<!-- ================= AUTH WRAPPER ================= -->
+
+<div class="auth-container">
+
+
+    <div class="auth-card">
+
+
+        <!-- Header -->
+
+        <h2>Create Account</h2>
+
+        <p class="auth-subtitle">
+            Join and start tracking your learning journey
+        </p>
+
+
+        <!-- Form -->
+
+        <form method="POST" class="auth-form">
+
+
+            <input type="text"
+                   name="username"
+                   placeholder="Choose Username"
+                   required>
+
+
+            <input type="password"
+                   name="password"
+                   placeholder="Create Password"
+                   required>
+
+
+            <button type="submit" class="btn-auth">
+                Register
+            </button>
+
+
+        </form>
+
+
+        <!-- Footer -->
+
+        <div class="auth-footer">
+
+            <p>
+                Already have an account?
+                <a href="/login">Login</a>
+            </p>
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+</body>
+</html>

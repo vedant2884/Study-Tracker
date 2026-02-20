@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>Edit Profile</title>
+
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="icon" type="image/png"
+          href="{{ url_for('static', filename='favicon.png') }}?v=5">
+          
+</head>
+
+<body>
+
+
+<!-- ================= PAGE WRAPPER ================= -->
+
+<div id="pageWrapper">
+
+
+<!-- ================= CARD ================= -->
+
+<div class="card profile-card">
+
+
+    <h2>Edit Profile</h2>
+
+
+    <form method="POST"
+          enctype="multipart/form-data"
+          class="profile-form">
+
+
+        <!-- Profile Image -->
+
+        <div class="image-upload">
+
+            <img
+                src="{% if profile and profile['image'] %}
+                        {{ url_for('static', filename='uploads/' + profile['image']) }}
+                     {% else %}
+                        {{ url_for('static', filename='default.png') }}
+                     {% endif %}"
+                class="profile-preview"
+                id="previewImg">
+
+            <label class="upload-btn">
+
+                Change Photo
+                <input type="file"
+                       name="image"
+                       id="imageInput"
+                       accept="image/*"
+                       hidden>
+
+            </label>
+
+        </div>
+
+
+        <!-- Display Name -->
+
+        <input type="text"
+               name="display_name"
+               placeholder="Display Name"
+               value="{{ profile['display_name'] if profile else '' }}"
+               required>
+
+
+        <!-- Bio -->
+
+        <textarea name="bio"
+                  placeholder="Write something about you..."
+                  rows="4">{{ profile['bio'] if profile else '' }}</textarea>
+
+
+        <!-- Skills -->
+
+        <input type="text"
+               name="skills"
+               placeholder="Skills (Python, DSA, ML...)"
+               value="{{ profile['skills'] if profile else '' }}">
+
+
+        <!-- Interests -->
+
+        <input type="text"
+               name="interests"
+               placeholder="Interests (AI, Web Dev...)"
+               value="{{ profile['interests'] if profile else '' }}">
+
+
+        <!-- College -->
+
+        <input type="text"
+               name="college"
+               placeholder="College Name"
+               value="{{ profile['college'] if profile else '' }}">
+
+
+        <!-- Buttons -->
+
+        <div class="profile-actions">
+
+            <button type="submit" class="btn-save">
+                Save Profile
+            </button>
+
+            <a href="/" class="btn-cancel">
+                Cancel
+            </a>
+
+        </div>
+
+
+    </form>
+
+
+</div>
+
+
+</div>
+
+
+<!-- ================= IMAGE PREVIEW JS ================= -->
+
+<script>
+
+const imageInput = document.getElementById("imageInput");
+const previewImg = document.getElementById("previewImg");
+
+imageInput.addEventListener("change", () => {
+
+    const file = imageInput.files[0];
+
+    if (file) {
+        previewImg.src = URL.createObjectURL(file);
+    }
+
+});
+
+</script>
+
+
+</body>
+</html>

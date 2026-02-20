@@ -1,0 +1,700 @@
+/* ================= GLOBAL ================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: var(--bg-color);
+    color: var(--text-color);
+    padding: 100px 20px 40px;
+    text-align: center;
+}
+
+
+/* ================= THEME ================= */
+
+:root {
+    --bg-color: #f4f6f9;
+    --card-bg: #ffffff;
+    --text-color: #2c3e50;
+    --border-color: #ddd;
+
+    --btn-bg: #3498db;
+    --btn-hover: #2980b9;
+
+    --danger: #e74c3c;
+}
+
+[data-theme="dark"] {
+    --bg-color: #121212;
+    --card-bg: #1e1e1e;
+    --text-color: #ffffff;
+    --border-color: #444;
+
+    --btn-bg: #9b59b6;
+    --btn-hover: #8e44ad;
+}
+
+
+/* Smooth transition */
+
+body,
+.card,
+input,
+select,
+textarea,
+button,
+table,
+th,
+td {
+    transition: all 0.25s ease;
+}
+
+
+/* ================= TOP BAR ================= */
+
+.top-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 70px;
+
+    background: var(--card-bg);
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 0 25px;
+
+    border-bottom: 1px solid var(--border-color);
+
+    z-index: 1000;
+}
+
+.app-title {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+
+/* ================= AVATAR ================= */
+
+.top-user {
+    position: relative;
+    cursor: pointer;
+}
+
+.avatar {
+    width: 42px;
+    height: 42px;
+
+    border-radius: 50%;
+    object-fit: cover;
+
+    border: 2px solid var(--btn-bg);
+}
+
+
+/* ================= DROPDOWN ================= */
+
+.dropdown {
+    position: absolute;
+    top: 55px;
+    right: 0;
+
+    background: var(--card-bg);
+
+    width: 190px;
+
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+
+    display: none;
+    flex-direction: column;
+
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+
+    z-index: 999;
+}
+
+.dropdown.show {
+    display: flex;
+}
+
+.dropdown p {
+    padding: 12px;
+    font-weight: bold;
+}
+
+.dropdown a,
+.dropdown-btn {
+
+    padding: 10px 15px;
+
+    border: none;
+    background: none;
+
+    text-align: left;
+
+    color: var(--text-color);
+    text-decoration: none;
+
+    cursor: pointer;
+
+    font-size: 14px;
+}
+
+.dropdown a:hover,
+.dropdown-btn:hover {
+    background: rgba(0,0,0,0.05);
+}
+
+.dropdown hr {
+    border: none;
+    border-top: 1px solid var(--border-color);
+}
+
+.logout {
+    color: var(--danger) !important;
+}
+
+
+/* ================= PAGE ================= */
+
+#pageWrapper {
+    max-width: 1200px;
+    margin: auto;
+
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+
+/* ================= CARDS ================= */
+
+.card {
+    background: var(--card-bg);
+
+    margin: 25px auto;
+    padding: 25px;
+
+    width: 100%;
+    max-width: 850px;
+
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.card:hover {
+    transform: translateY(-3px);
+}
+
+
+/* ================= FORMS ================= */
+
+input,
+select,
+textarea {
+    width: 100%;
+    max-width: 300px;
+
+    padding: 10px;
+    margin: 6px;
+
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+
+    background: var(--card-bg);
+    color: var(--text-color);
+}
+
+textarea {
+    resize: vertical;
+}
+
+input::placeholder {
+    color: #999;
+}
+
+button {
+    background: var(--btn-bg);
+    color: white;
+
+    padding: 9px 15px;
+
+    border: none;
+    border-radius: 6px;
+
+    cursor: pointer;
+}
+
+button:hover {
+    background: var(--btn-hover);
+}
+
+
+/* ================= GOAL ================= */
+
+.goal-box {
+    max-width: 850px;
+    margin: auto;
+
+    background: var(--card-bg);
+
+    padding: 20px;
+
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+}
+
+.goal-form {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.progress-bar {
+    height: 14px;
+    background: #ccc;
+
+    border-radius: 8px;
+    overflow: hidden;
+
+    margin-top: 10px;
+}
+
+#progressFill {
+    height: 100%;
+    width: 0%;
+
+    background: linear-gradient(to right, #2ecc71, #27ae60);
+
+    transition: width 0.4s ease;
+}
+
+.reset-btn {
+    background: var(--danger);
+    color: white;
+
+    padding: 9px 12px;
+    border-radius: 6px;
+
+    text-decoration: none;
+}
+
+.reset-btn:hover {
+    opacity: 0.9;
+}
+
+
+/* ================= TABLE ================= */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 10px;
+    border: 1px solid var(--border-color);
+}
+
+th {
+    background: rgba(0,0,0,0.05);
+}
+
+tr:hover {
+    background: rgba(0,0,0,0.04);
+}
+
+.delete-btn {
+    color: var(--danger);
+    text-decoration: none;
+}
+
+
+/* ================= SEARCH ================= */
+
+.search-box {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+
+    margin-bottom: 15px;
+}
+
+#clearFilter {
+    background: var(--danger);
+}
+
+
+/* ================= AUTH ================= */
+
+.auth-container {
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.auth-card {
+    width: 350px;
+
+    background: var(--card-bg);
+
+    padding: 30px;
+
+    border-radius: 12px;
+
+    border: 1px solid var(--border-color);
+
+    box-shadow: 0 6px 25px rgba(0,0,0,0.15);
+}
+
+.auth-subtitle {
+    font-size: 14px;
+    color: gray;
+    margin-bottom: 15px;
+}
+
+.auth-form input {
+    max-width: 100%;
+}
+
+.btn-auth {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.auth-footer a {
+    color: var(--btn-bg);
+    font-weight: bold;
+}
+
+
+/* ================= PROFILE EDIT ================= */
+
+.profile-card {
+    max-width: 600px;
+}
+
+.image-upload {
+    margin-bottom: 15px;
+}
+
+.profile-preview {
+    width: 100px;
+    height: 100px;
+
+    border-radius: 50%;
+
+    object-fit: cover;
+
+    border: 2px solid var(--btn-bg);
+
+    margin-bottom: 10px;
+}
+
+.upload-btn {
+    display: inline-block;
+
+    background: var(--btn-bg);
+    color: white;
+
+    padding: 7px 12px;
+
+    border-radius: 6px;
+
+    cursor: pointer;
+}
+
+
+/* ================= PROFILE VIEW ================= */
+
+.profile-view {
+    max-width: 750px;
+}
+
+.profile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-edit {
+    background: var(--btn-bg);
+    color: white;
+
+    padding: 7px 12px;
+    border-radius: 6px;
+
+    text-decoration: none;
+}
+
+.profile-stats {
+    display: grid;
+
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+
+    gap: 15px;
+
+    margin-top: 15px;
+}
+
+.stat-box {
+    background: rgba(0,0,0,0.05);
+
+    padding: 15px;
+
+    border-radius: 8px;
+}
+
+.profile-footer {
+    margin-top: 20px;
+}
+
+.btn-back {
+    text-decoration: none;
+    color: var(--btn-bg);
+    font-weight: bold;
+}
+
+/* NAVBAR */
+
+.top-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 60px;
+
+    background: var(--card-bg);
+    border-bottom: 1px solid var(--border-color);
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 25px;
+
+    z-index: 1000;
+}
+
+/* Left side */
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nav-logo {
+    width: 35px;
+    height: 35px;
+
+    border-radius: 6px;
+}
+
+.nav-title {
+    font-weight: bold;
+    font-size: 18px;
+    color: var(--text-color);
+}
+
+/* Push page down because navbar is fixed */
+#pageWrapper {
+    margin-top: 80px;
+}
+
+/* LOG FORM LAYOUT */
+
+.log-form {
+    margin-top: 15px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+
+    max-width: 700px;
+    margin: auto;
+}
+
+.form-grid input {
+    width: 100%;
+    max-width: none;
+}
+
+.form-bottom {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+
+    margin-top: 20px;
+}
+
+.form-bottom select {
+    width: 200px;
+}
+
+/* ================= BUTTON IMPROVEMENT ================= */
+
+button,
+.reset-btn,
+.btn-auth,
+.btn-edit,
+.btn-back {
+    padding: 10px 18px;
+    border-radius: 8px;
+
+    font-weight: 600;
+    letter-spacing: 0.5px;
+
+    transition: all 0.25s ease;
+
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+button:hover,
+.btn-auth:hover,
+.btn-edit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+}
+
+button:active {
+    transform: scale(0.96);
+}
+
+.reset-btn {
+    background: #e74c3c;
+}
+
+.reset-btn:hover {
+    background: #c0392b;
+}
+
+/* Add button special color */
+button[type="submit"] {
+    background: linear-gradient(135deg, #9b59b6, #6c5ce7);
+}
+
+button[type="submit"]:hover {
+    background: linear-gradient(135deg, #8e44ad, #5f4dd0);
+}
+
+/* ================= MOBILE RESPONSIVE ================= */
+
+@media (max-width: 768px) {
+
+    body {
+        padding: 80px 15px 30px;
+    }
+
+    .card {
+        width: 100%;
+        padding: 20px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-bottom {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .goal-form {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    table {
+        font-size: 13px;
+    }
+
+    th, td {
+        padding: 6px;
+    }
+
+    .top-bar {
+        padding: 0 15px;
+    }
+
+    .nav-title {
+        font-size: 16px;
+    }
+
+}
+
+/* ================= HISTORY BUTTONS ================= */
+
+.history-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.action-btn {
+    padding: 10px 18px;
+
+    border-radius: 8px;
+
+    font-weight: 600;
+    text-decoration: none;
+
+    color: white;
+
+    transition: all 0.25s ease;
+
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+/* Undo = Blue */
+.undo-btn {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+}
+
+.undo-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+/* Redo = Green */
+.redo-btn {
+    background: linear-gradient(135deg, #2ecc71, #27ae60);
+}
+
+.redo-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+.action-btn:active {
+    transform: scale(0.95);
+}
